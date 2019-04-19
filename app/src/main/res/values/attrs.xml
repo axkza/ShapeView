@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--是否有默认触摸置灰的效果-->
+    <attr name = "default_touch" format = "boolean" />
+    <!--正常背景图-->
+    <attr name = "bg_drawable" format = "reference" />
+    <!--按下背景图-->
+    <attr name = "bg_touch_drawable" format = "reference" />
+    <!--unable背景图-->
+    <attr name = "bg_unable_drawable" format = "reference" />
+    <!--填充色-->
+    <attr name="solid_color" format="color"></attr>
+    <!--按下的填充色-->
+    <attr name="solid_touch_color" format="color"></attr>
+    <!--unable的填充色-->
+    <attr name="solid_unable_color" format="color"></attr>
+    <!--边框色-->
+    <attr name="stroke_color" format="color"></attr>
+    <!--按下的边框色-->
+    <attr name="stroke_touch_color" format="color"></attr>
+    <!--unable的边框色-->
+    <attr name="stroke_unable_color" format="color"></attr>
+    <!--线条宽度-->
+    <attr name="stroke_width" format="dimension"></attr>
+    <!--虚线宽度-->
+    <attr name="stroke_dash_width" format="dimension"></attr>
+    <!--虚线间隙-->
+    <attr name="stroke_dash_gap" format="dimension"></attr>
+    <!--渐变颜色-->
+    <attr name="gradient_start_color" format="color"></attr>
+    <attr name="gradient_center_color" format="color"></attr>
+    <attr name="gradient_end_color" format="color"></attr>
+    <!--按下的渐变颜色-->
+    <attr name="gradient_start_touch_color" format="color"></attr>
+    <attr name="gradient_center_touch_color" format="color"></attr>
+    <attr name="gradient_end_touch_color" format="color"></attr>
+    <!--unable的渐变颜色-->
+    <attr name="gradient_start_unable_color" format="color"></attr>
+    <attr name="gradient_center_unable_color" format="color"></attr>
+    <attr name="gradient_end_unable_color" format="color"></attr>
+    <!--渐变颜色的角度, 当angle=0时，渐变色是从左向右。 然后逆时针方向转，当angle=90时为从下往上。angle必须为45的整数倍-->
+    <attr name="gradient_angle" format="enum">
+        <enum name="LEFT_RIGHT" value="0"></enum>
+        <enum name="BL_TR" value="45"></enum>
+        <enum name="BOTTOM_TOP" value="90"></enum>
+        <enum name="BR_TL" value="135"></enum>
+        <enum name="RIGHT_LEFT" value="180"></enum>
+        <enum name="TR_BL" value="225"></enum>
+        <enum name="TOP_BOTTOM" value="170"></enum>
+        <enum name="TL_BR" value="315"></enum>
+    </attr>
+
+    <attr name="gradient_type" format="enum">
+        <enum name="linear" value="0"></enum>  <!-- 线性渐变 -->
+        <enum name="radial" value="1"></enum>  <!-- 放射性渐变 -->
+        <enum name="sweep" value="2"></enum>  <!-- 扫描线式的渐变 -->
+    </attr>
+    <!-- 渐变色半径, 当 android:type="radial" 时才使用。单独使用android:type="radial"会报错 -->
+    <attr name="gradient_radius" format="dimension"></attr>
+    <!-- 中心点(取值范围0-1) -->
+    <attr name="gradient_center_x" format="float"></attr>
+    <attr name="gradient_center_y" format="float"></attr>
+    <!--四角角度-->
+    <attr name="corner_radius" format="dimension"></attr>
+    <attr name="top_left_radius" format="dimension"></attr>
+    <attr name="top_right_radius" format="dimension"></attr>
+    <attr name="bottom_left_radius" format="dimension"></attr>
+    <attr name="bottom_right_radius" format="dimension"></attr>
+    <!--shape类型-->
+    <attr name="shape_type" format="enum">
+        <enum name="rectangle" value="0"></enum>
+        <enum name="oval" value="1"></enum>
+    </attr>
+    <!--背景类型-->
+    <attr name="bg_model" format="enum">
+        <enum name="all" value="0"></enum>
+        <enum name="stroke" value="1"></enum>
+        <enum name="solid" value="2"></enum>
+        <enum name="gradient" value="3"></enum>
+    </attr>
+    <!-- 宽高比 -->
+    <attr name="wh_ratio" format="float"></attr>
+
+
+    <declare-styleable name="ShapeTextView">
+        <!--按下的字体色-->
+        <attr name="text_touch_color" format="color"></attr>
+        <!--unable的字体色-->
+        <attr name="text_unable_color" format="color"></attr>
+        <!--是否有默认触摸置灰的效果-->
+        <attr name = "default_touch"/>
+        <!--正常背景图-->
+        <attr name = "bg_drawable"/>
+        <!--按下背景图-->
+        <attr name = "bg_touch_drawable"/>
+        <!--unable背景图-->
+        <attr name = "bg_unable_drawable"/>
+        <!--填充色-->
+        <attr name="solid_color"/>
+        <!--按下的填充色-->
+        <attr name="solid_touch_color"/>
+        <!--unable的填充色-->
+        <attr name="solid_unable_color"/>
+        <!--边框色-->
+        <attr name="stroke_color"/>
+        <!--按下的边框色-->
+        <attr name="stroke_touch_color"/>
+        <!--unable的边框色-->
+        <attr name="stroke_unable_color"/>
+        <!--线条宽度-->
+        <attr name="stroke_width"/>
+        <!--虚线宽度-->
+        <attr name="stroke_dash_width"/>
+        <!--虚线间隙-->
+        <attr name="stroke_dash_gap"/>
+        <!--渐变颜色-->
+        <attr name="gradient_start_color"/>
+        <attr name="gradient_center_color"/>
+        <attr name="gradient_end_color"/>
+        <!--按下的渐变颜色-->
+        <attr name="gradient_start_touch_color"/>
+        <attr name="gradient_center_touch_color"/>
+        <attr name="gradient_end_touch_color"/>
+        <!--unable的渐变颜色-->
+        <attr name="gradient_start_unable_color" />
+        <attr name="gradient_center_unable_color"/>
+        <attr name="gradient_end_unable_color"/>
+        <!--渐变颜色的角度, 当angle=0时，渐变色是从左向右。 然后逆时针方向转，当angle=90时为从下往上。angle必须为45的整数倍-->
+        <attr name="gradient_angle"/>
+        <attr name="gradient_type" />
+        <!-- 渐变色半径, 当 android:type="radial" 时才使用。单独使用android:type="radial"会报错 -->
+        <attr name="gradient_radius"/>
+        <!-- 中心点(取值范围0-1) -->
+        <attr name="gradient_center_x"/>
+        <attr name="gradient_center_y"/>
+        <!--四角角度-->
+        <attr name="corner_radius"/>
+        <attr name="top_left_radius"/>
+        <attr name="top_right_radius"/>
+        <attr name="bottom_left_radius"/>
+        <attr name="bottom_right_radius"/>
+        <!--shape类型-->
+        <attr name="shape_type"/>
+        <!--背景类型-->
+        <attr name="bg_model"/>
+        <!-- 宽高比 -->
+        <attr name="wh_ratio"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeFrameLayout">
+        <!--是否有默认触摸置灰的效果-->
+        <attr name = "default_touch"/>
+        <!--正常背景图-->
+        <attr name = "bg_drawable"/>
+        <!--按下背景图-->
+        <attr name = "bg_touch_drawable"/>
+        <!--unable背景图-->
+        <attr name = "bg_unable_drawable"/>
+        <!--填充色-->
+        <attr name="solid_color"/>
+        <!--按下的填充色-->
+        <attr name="solid_touch_color"/>
+        <!--unable的填充色-->
+        <attr name="solid_unable_color"/>
+        <!--边框色-->
+        <attr name="stroke_color"/>
+        <!--按下的边框色-->
+        <attr name="stroke_touch_color"/>
+        <!--unable的边框色-->
+        <attr name="stroke_unable_color"/>
+        <!--线条宽度-->
+        <attr name="stroke_width"/>
+        <!--虚线宽度-->
+        <attr name="stroke_dash_width"/>
+        <!--虚线间隙-->
+        <attr name="stroke_dash_gap"/>
+        <!--渐变颜色-->
+        <attr name="gradient_start_color"/>
+        <attr name="gradient_center_color"/>
+        <attr name="gradient_end_color"/>
+        <!--按下的渐变颜色-->
+        <attr name="gradient_start_touch_color"/>
+        <attr name="gradient_center_touch_color"/>
+        <attr name="gradient_end_touch_color"/>
+        <!--unable的渐变颜色-->
+        <attr name="gradient_start_unable_color" />
+        <attr name="gradient_center_unable_color"/>
+        <attr name="gradient_end_unable_color"/>
+        <!--渐变颜色的角度, 当angle=0时，渐变色是从左向右。 然后逆时针方向转，当angle=90时为从下往上。angle必须为45的整数倍-->
+        <attr name="gradient_angle"/>
+        <attr name="gradient_type" />
+        <!-- 渐变色半径, 当 android:type="radial" 时才使用。单独使用android:type="radial"会报错 -->
+        <attr name="gradient_radius"/>
+        <!-- 中心点(取值范围0-1) -->
+        <attr name="gradient_center_x"/>
+        <attr name="gradient_center_y"/>
+        <!--四角角度-->
+        <attr name="corner_radius"/>
+        <attr name="top_left_radius"/>
+        <attr name="top_right_radius"/>
+        <attr name="bottom_left_radius"/>
+        <attr name="bottom_right_radius"/>
+        <!--shape类型-->
+        <attr name="shape_type"/>
+        <!--背景类型-->
+        <attr name="bg_model"/>
+        <!-- 宽高比 -->
+        <attr name="wh_ratio"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeRelativeLayout">
+        <!--是否有默认触摸置灰的效果-->
+        <attr name = "default_touch"/>
+        <!--正常背景图-->
+        <attr name = "bg_drawable"/>
+        <!--按下背景图-->
+        <attr name = "bg_touch_drawable"/>
+        <!--unable背景图-->
+        <attr name = "bg_unable_drawable"/>
+        <!--填充色-->
+        <attr name="solid_color"/>
+        <!--按下的填充色-->
+        <attr name="solid_touch_color"/>
+        <!--unable的填充色-->
+        <attr name="solid_unable_color"/>
+        <!--边框色-->
+        <attr name="stroke_color"/>
+        <!--按下的边框色-->
+        <attr name="stroke_touch_color"/>
+        <!--unable的边框色-->
+        <attr name="stroke_unable_color"/>
+        <!--线条宽度-->
+        <attr name="stroke_width"/>
+        <!--虚线宽度-->
+        <attr name="stroke_dash_width"/>
+        <!--虚线间隙-->
+        <attr name="stroke_dash_gap"/>
+        <!--渐变颜色-->
+        <attr name="gradient_start_color"/>
+        <attr name="gradient_center_color"/>
+        <attr name="gradient_end_color"/>
+        <!--按下的渐变颜色-->
+        <attr name="gradient_start_touch_color"/>
+        <attr name="gradient_center_touch_color"/>
+        <attr name="gradient_end_touch_color"/>
+        <!--unable的渐变颜色-->
+        <attr name="gradient_start_unable_color" />
+        <attr name="gradient_center_unable_color"/>
+        <attr name="gradient_end_unable_color"/>
+        <!--渐变颜色的角度, 当angle=0时，渐变色是从左向右。 然后逆时针方向转，当angle=90时为从下往上。angle必须为45的整数倍-->
+        <attr name="gradient_angle"/>
+        <attr name="gradient_type" />
+        <!-- 渐变色半径, 当 android:type="radial" 时才使用。单独使用android:type="radial"会报错 -->
+        <attr name="gradient_radius"/>
+        <!-- 中心点(取值范围0-1) -->
+        <attr name="gradient_center_x"/>
+        <attr name="gradient_center_y"/>
+        <!--四角角度-->
+        <attr name="corner_radius"/>
+        <attr name="top_left_radius"/>
+        <attr name="top_right_radius"/>
+        <attr name="bottom_left_radius"/>
+        <attr name="bottom_right_radius"/>
+        <!--shape类型-->
+        <attr name="shape_type"/>
+        <!--背景类型-->
+        <attr name="bg_model"/>
+        <!-- 宽高比 -->
+        <attr name="wh_ratio"/>
+    </declare-styleable>
+
+    <declare-styleable name="ShapeLinearLayout">
+        <!--是否有默认触摸置灰的效果-->
+        <attr name = "default_touch"/>
+        <!--正常背景图-->
+        <attr name = "bg_drawable"/>
+        <!--按下背景图-->
+        <attr name = "bg_touch_drawable"/>
+        <!--unable背景图-->
+        <attr name = "bg_unable_drawable"/>
+        <!--填充色-->
+        <attr name="solid_color"/>
+        <!--按下的填充色-->
+        <attr name="solid_touch_color"/>
+        <!--unable的填充色-->
+        <attr name="solid_unable_color"/>
+        <!--边框色-->
+        <attr name="stroke_color"/>
+        <!--按下的边框色-->
+        <attr name="stroke_touch_color"/>
+        <!--unable的边框色-->
+        <attr name="stroke_unable_color"/>
+        <!--线条宽度-->
+        <attr name="stroke_width"/>
+        <!--虚线宽度-->
+        <attr name="stroke_dash_width"/>
+        <!--虚线间隙-->
+        <attr name="stroke_dash_gap"/>
+        <!--渐变颜色-->
+        <attr name="gradient_start_color"/>
+        <attr name="gradient_center_color"/>
+        <attr name="gradient_end_color"/>
+        <!--按下的渐变颜色-->
+        <attr name="gradient_start_touch_color"/>
+        <attr name="gradient_center_touch_color"/>
+        <attr name="gradient_end_touch_color"/>
+        <!--unable的渐变颜色-->
+        <attr name="gradient_start_unable_color" />
+        <attr name="gradient_center_unable_color"/>
+        <attr name="gradient_end_unable_color"/>
+        <!--渐变颜色的角度, 当angle=0时，渐变色是从左向右。 然后逆时针方向转，当angle=90时为从下往上。angle必须为45的整数倍-->
+        <attr name="gradient_angle"/>
+        <attr name="gradient_type" />
+        <!-- 渐变色半径, 当 android:type="radial" 时才使用。单独使用android:type="radial"会报错 -->
+        <attr name="gradient_radius"/>
+        <!-- 中心点(取值范围0-1) -->
+        <attr name="gradient_center_x"/>
+        <attr name="gradient_center_y"/>
+        <!--四角角度-->
+        <attr name="corner_radius"/>
+        <attr name="top_left_radius"/>
+        <attr name="top_right_radius"/>
+        <attr name="bottom_left_radius"/>
+        <attr name="bottom_right_radius"/>
+        <!--shape类型-->
+        <attr name="shape_type"/>
+        <!--背景类型-->
+        <attr name="bg_model"/>
+        <!-- 宽高比 -->
+        <attr name="wh_ratio"/>
+    </declare-styleable>
+</resources>
