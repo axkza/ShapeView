@@ -22,7 +22,7 @@ drawable背景|bg_drawable：正常背景图 <br> bg_touch_drawable：按下背�
 
 ## 代码调用 
 
-<font color=red size=72>所有动态设置ShapeView属性的尽量都用ShapeHelper去处理</font>，比如：
+$\color{#FF0000}{所有动态设置ShapeView属性的尽量都用ShapeHelper去处理}$ ，比如：
 
 ShapeTextView shapeView = new ShapeTextView(context); 
 #### 设置字体颜色
