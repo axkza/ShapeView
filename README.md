@@ -3,4 +3,84 @@
 
 主要用于实现宽高比、圆角、纯色背景、线条背景、渐变背景、触摸反馈（触摸切换背景，触摸切换字体颜色）、渐变字体颜色等功能。
 
+**属性**
 
+
+| 属性名 | 说明 | 
+| ------ | ------ | 
+| textColor | 正常字体颜色  
+水电费| 
+| text_touch_color | 按下的字体色 | 
+| text_unable_color | unable的字体色 | 
+| text_start_color | 字体开始的渐变色 |  
+| text_end_color | 字体结束的渐变色 |  
+| bg_default_touch | 是否有默认触摸置灰的效果，以正常背景为基础，添加一个置灰的效果 |
+| bg_drawable | 正常背景图 |
+| bg_touch_drawable | 按下背景图 |
+| bg_unable_drawable | unable背景图 | 
+| solid_color | 填充色 |  
+| solid_touch_color | 按下的填充色 |  
+| solid_unable_color | unable的填充色 |  
+| stroke_color | 边框色 | 
+| stroke_touch_color | 按下的边框色 |  
+| stroke_unable_color | unable的边框色 | 
+| stroke_width | 线条宽度 |  
+| stroke_dash_width | 虚线宽度 | 
+| stroke_dash_gap | 虚线间隙 |  
+| gradient_start_color | 渐变背景开始颜色 |
+| gradient_center_color| 渐变背景开始渐变颜色 | 
+|  |  | 
+| 字体颜色 | text_touch_color  
+text_unable_color  
+text_unable_color | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+|  |  | 
+
+        <!---->
+        <attr name=""/>
+        <attr name=""/>
+        <attr name="gradient_end_color"/>
+        <!--按下的渐变颜色-->
+        <attr name="gradient_start_touch_color"/>
+        <attr name="gradient_center_touch_color"/>
+        <attr name="gradient_end_touch_color"/>
+        <!--unable的渐变颜色-->
+        <attr name="gradient_start_unable_color" />
+        <attr name="gradient_center_unable_color"/>
+        <attr name="gradient_end_unable_color"/>
+        <!--渐变颜色的角度, 当angle=0时，渐变色是从左向右。 然后逆时针方向转，当angle=90时为从下往上。angle必须为45的整数倍-->
+        <attr name="gradient_angle"/>
+        <attr name="gradient_type" />
+        <!-- 渐变色半径, 当 android:type="radial" 时才使用。单独使用android:type="radial"会报错 -->
+        <attr name="gradient_radius"/>
+        <!-- 中心点(取值范围0-1) -->
+        <attr name="gradient_center_x"/>
+        <attr name="gradient_center_y"/>
+        <!--四角角度-->
+        <attr name="corner_radius"/>
+        <attr name="top_left_radius"/>
+        <attr name="top_right_radius"/>
+        <attr name="bottom_left_radius"/>
+        <attr name="bottom_right_radius"/>
+        <!--shape类型-->
+        <attr name="shape_type"/>
+        <!--背景类型-->
+        <attr name="bg_model"/>
+        <!-- 宽高比 -->
+        <attr name="wh_ratio"/>
