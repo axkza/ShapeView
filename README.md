@@ -20,7 +20,7 @@ drawable背景|bg_drawable：正常背景图 <br> bg_touch_drawable：按下背�
 <br>
 <br>
 
-## 代码调用 
+## 动态修改属性 
 所有动态设置ShapeView属性的尽量都用ShapeHelper去处理，比如：ShapeTextView shapeView = new ShapeTextView(context); 
 ##### > 设置字体颜色
 ShapeHelper.setTextColor(shapeView, getResources().getColor(R.color.black));
@@ -54,7 +54,7 @@ ShapeHelper.setBgDefaultTouch(shapeView, true);
 ShapeHelper.setCornerRadius(shapeView, 10);
 <br>
 <br>
-## 自定义动态修改属性
+## 动态自定义修改属性
 ShapeHelper如果没有涵盖到的修改属性的方法，可以自行通过ShapeHelper的getShapeModel方法获取属性，修改后通过setShapeModel方法重新设置，比如：
 ##### > 修改宽高比
 ShapeModel model = ShapeHelper.getShapeModel(shapeView);
