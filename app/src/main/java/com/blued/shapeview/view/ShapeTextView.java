@@ -2,7 +2,10 @@ package com.blued.shapeview.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Shader;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
@@ -39,7 +42,9 @@ public class ShapeTextView extends AppCompatTextView implements ShapeHelper.Shap
         model.textColor = getCurrentTextColor();
         model.textTouchColor = a.getInteger(R.styleable.ShapeTextView_text_touch_color, model.textColor);
         model.textUnableColor = a.getInteger(R.styleable.ShapeTextView_text_unable_color, model.textColor);
-        model.defaultTouch = a.getBoolean(R.styleable.ShapeTextView_default_touch, true);
+        model.textStartColor = a.getInteger(R.styleable.ShapeTextView_text_start_color, 0);
+        model.textEndColor = a.getInteger(R.styleable.ShapeTextView_text_end_color, 0);
+        model.bgDefaultTouch = a.getBoolean(R.styleable.ShapeTextView_bg_default_touch, true);
         model.bgDrawable = a.getDrawable(R.styleable.ShapeTextView_bg_drawable);
         model.bgTouchDrawable = a.getDrawable(R.styleable.ShapeTextView_bg_touch_drawable);
         model.bgUnableDrawable = a.getDrawable(R.styleable.ShapeTextView_bg_unable_drawable);
@@ -49,9 +54,9 @@ public class ShapeTextView extends AppCompatTextView implements ShapeHelper.Shap
         model.strokeColor = a.getColor(R.styleable.ShapeTextView_stroke_color, Color.TRANSPARENT);
         model.strokeTouchColor = a.getColor(R.styleable.ShapeTextView_stroke_touch_color, Color.TRANSPARENT);
         model.strokeUnableColor = a.getColor(R.styleable.ShapeTextView_stroke_unable_color, Color.TRANSPARENT);
-        model.strokeWidth = (int) a.getDimension(R.styleable.ShapeTextView_stroke_width, 0);
-        model.strokeDashWidth = (int) a.getDimension(R.styleable.ShapeTextView_stroke_dash_width, 0);
-        model.strokeDashGap = (int) a.getDimension(R.styleable.ShapeTextView_stroke_dash_gap, 0);
+        model.strokeWidth = a.getDimension(R.styleable.ShapeTextView_stroke_width, 0f);
+        model.strokeDashWidth = a.getDimension(R.styleable.ShapeTextView_stroke_dash_width, 0f);
+        model.strokeDashGap = a.getDimension(R.styleable.ShapeTextView_stroke_dash_gap, 0f);
         model.cornerRadius = a.getDimension(R.styleable.ShapeTextView_corner_radius, 0);
         model.topLeftRadius = a.getDimension(R.styleable.ShapeTextView_top_left_radius, 0);
         model.topRightRadius = a.getDimension(R.styleable.ShapeTextView_top_right_radius, 0);
@@ -77,6 +82,18 @@ public class ShapeTextView extends AppCompatTextView implements ShapeHelper.Shap
 
         a.recycle();
         setShapeColor();
+    }
+
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        // 设置字体渐变色
+        if (model != null && model.textStartColor != 0 && model.textEndColor != 0) {
+            LinearGradient mLinearGradient = new LinearGradient(0, 0, getMeasuredWidth(), 0, model.textStartColor, model.textEndColor, Shader.TileMode.REPEAT);
+            getPaint().setShader(mLinearGradient);
+        }
+
+        super.onDraw(canvas);
     }
 
     /**

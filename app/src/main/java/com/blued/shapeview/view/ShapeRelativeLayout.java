@@ -34,7 +34,7 @@ public class ShapeRelativeLayout extends RelativeLayout implements ShapeHelper.S
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.ShapeRelativeLayout);
         model = new ShapeModel();
-        model.defaultTouch = a.getBoolean(R.styleable.ShapeRelativeLayout_default_touch, false);
+        model.bgDefaultTouch = a.getBoolean(R.styleable.ShapeRelativeLayout_bg_default_touch, false);
         model.bgDrawable = a.getDrawable(R.styleable.ShapeRelativeLayout_bg_drawable);
         model.bgTouchDrawable = a.getDrawable(R.styleable.ShapeRelativeLayout_bg_touch_drawable);
         model.bgUnableDrawable = a.getDrawable(R.styleable.ShapeRelativeLayout_bg_unable_drawable);
@@ -44,9 +44,9 @@ public class ShapeRelativeLayout extends RelativeLayout implements ShapeHelper.S
         model.strokeColor = a.getColor(R.styleable.ShapeRelativeLayout_stroke_color, Color.TRANSPARENT);
         model.strokeTouchColor = a.getColor(R.styleable.ShapeRelativeLayout_stroke_touch_color, Color.TRANSPARENT);
         model.strokeUnableColor = a.getColor(R.styleable.ShapeRelativeLayout_stroke_unable_color, Color.TRANSPARENT);
-        model.strokeWidth = (int) a.getDimension(R.styleable.ShapeRelativeLayout_stroke_width, 0);
-        model.strokeDashWidth = (int) a.getDimension(R.styleable.ShapeRelativeLayout_stroke_dash_width, 0);
-        model.strokeDashGap = (int) a.getDimension(R.styleable.ShapeRelativeLayout_stroke_dash_gap, 0);
+        model.strokeWidth = a.getDimension(R.styleable.ShapeRelativeLayout_stroke_width, 0f);
+        model.strokeDashWidth = a.getDimension(R.styleable.ShapeRelativeLayout_stroke_dash_width, 0f);
+        model.strokeDashGap = a.getDimension(R.styleable.ShapeRelativeLayout_stroke_dash_gap, 0f);
         model.cornerRadius = a.getDimension(R.styleable.ShapeRelativeLayout_corner_radius, 0);
         model.topLeftRadius = a.getDimension(R.styleable.ShapeRelativeLayout_top_left_radius, 0);
         model.topRightRadius = a.getDimension(R.styleable.ShapeRelativeLayout_top_right_radius, 0);

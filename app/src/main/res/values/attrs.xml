@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--是否有默认触摸置灰的效果-->
-    <attr name = "default_touch" format = "boolean" />
+    <!--是否有默认触摸置灰的效果，以正常背景为基础，添加一个置灰的效果-->
+    <attr name = "bg_default_touch" format = "boolean" />
     <!--正常背景图-->
     <attr name = "bg_drawable" format = "reference" />
     <!--按下背景图-->
@@ -87,8 +87,12 @@
         <attr name="text_touch_color" format="color"></attr>
         <!--unable的字体色-->
         <attr name="text_unable_color" format="color"></attr>
-        <!--是否有默认触摸置灰的效果-->
-        <attr name = "default_touch"/>
+        <!--字体开始的渐变色-->
+        <attr name="text_start_color" format="color"></attr>
+        <!--字体结束的渐变色-->
+        <attr name="text_end_color" format="color"></attr>
+        <!--是否有默认触摸置灰的效果，以正常背景为基础，添加一个置灰的效果-->
+        <attr name = "bg_default_touch"/>
         <!--正常背景图-->
         <attr name = "bg_drawable"/>
         <!--按下背景图-->
@@ -148,8 +152,8 @@
     </declare-styleable>
 
     <declare-styleable name="ShapeFrameLayout">
-        <!--是否有默认触摸置灰的效果-->
-        <attr name = "default_touch"/>
+        <!--是否有默认触摸置灰的效果，以正常背景为基础，添加一个置灰的效果-->
+        <attr name = "bg_default_touch"/>
         <!--正常背景图-->
         <attr name = "bg_drawable"/>
         <!--按下背景图-->
@@ -209,8 +213,8 @@
     </declare-styleable>
 
     <declare-styleable name="ShapeRelativeLayout">
-        <!--是否有默认触摸置灰的效果-->
-        <attr name = "default_touch"/>
+        <!--是否有默认触摸置灰的效果，以正常背景为基础，添加一个置灰的效果-->
+        <attr name = "bg_default_touch"/>
         <!--正常背景图-->
         <attr name = "bg_drawable"/>
         <!--按下背景图-->
@@ -270,8 +274,8 @@
     </declare-styleable>
 
     <declare-styleable name="ShapeLinearLayout">
-        <!--是否有默认触摸置灰的效果-->
-        <attr name = "default_touch"/>
+        <!--是否有默认触摸置灰的效果，以正常背景为基础，添加一个置灰的效果-->
+        <attr name = "bg_default_touch"/>
         <!--正常背景图-->
         <attr name = "bg_drawable"/>
         <!--按下背景图-->

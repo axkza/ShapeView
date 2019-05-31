@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
@@ -53,14 +54,13 @@ public class ShapeHelper {
         if (normalDrawable == null) {
             normalDrawable = createGradientDrawable(BG_STATE.NORMAL, model);
         }
-
         if (pressDrawable == null) {
             if ((model.bgModel == BG_MODEL.DEFAULT && (model.solidTouchColor != 0 || model.solidTouchColor != 0 || model.startTouchColor != 0)) ||
                     (model.bgModel == BG_MODEL.SOLID && model.solidTouchColor != 0) ||
                     (model.bgModel == BG_MODEL.STROKE && model.strokeTouchColor != 0) ||
                     (model.bgModel == BG_MODEL.GRADIENT && model.startTouchColor != 0)) {
                 pressDrawable = createGradientDrawable(BG_STATE.PRESS, model);
-            } else if (model.defaultTouch && normalDrawable != null) {
+            } else if (model.bgDefaultTouch && normalDrawable != null) {
                 // 复制正常状态下的Drawable，然后setColorFilter增加灰色效果
                 Drawable.ConstantState state = normalDrawable.getConstantState();
                 if (state != null) {
@@ -129,7 +129,7 @@ public class ShapeHelper {
         switch (model.bgModel) {
             // 指定只显示线条
             case BG_MODEL.STROKE:
-                gradientDrawable.setStroke(model.strokeWidth, strokeColor, model.strokeDashWidth, model.strokeDashGap);
+                gradientDrawable.setStroke((int) model.strokeWidth, strokeColor, model.strokeDashWidth, model.strokeDashGap);
                 gradientDrawable.setColor(0);
                 break;
             // 指定只显示背景, 纯背景
@@ -144,7 +144,7 @@ public class ShapeHelper {
                 break;
             // 默认情况下，线条、纯背景、渐变背景均会显示，渐变色优先于纯背景
             case BG_MODEL.DEFAULT:
-                gradientDrawable.setStroke(model.strokeWidth, strokeColor, model.strokeDashWidth, model.strokeDashGap);
+                gradientDrawable.setStroke((int) model.strokeWidth, strokeColor, model.strokeDashWidth, model.strokeDashGap);
                 gradientDrawable.setColor(solidColor);
                 setGradientColors(gradientDrawable, model, startColor, centerColor, endColor);
                 break;
@@ -228,7 +228,6 @@ public class ShapeHelper {
         }
     }
 
-
     /**
      * 创建字体selector
      *
@@ -254,7 +253,11 @@ public class ShapeHelper {
         ShapeModel model = shapeView.getShapeModel();
         ((View) shapeView).setBackgroundDrawable(ShapeHelper.createStateListDrawable(model));
         if (shapeView instanceof AppCompatTextView || shapeView instanceof TextView) {
-            ((TextView) shapeView).setTextColor(ShapeHelper.createColorStateList(model));
+            if (model.textStartColor != 0) {
+                ((TextView) shapeView).setTextColor(model.textStartColor);
+            } else {
+                ((TextView) shapeView).setTextColor(ShapeHelper.createColorStateList(model));
+            }
         }
     }
 
@@ -280,12 +283,12 @@ public class ShapeHelper {
     }
 
     // 切换模式，同时设置字体颜色、触摸字体颜色
-    public static void setBgModel(ShapeView shapeView, int bgModel, int textColor, int textTouchColor) {
+    public static void setBgModel(ShapeView shapeView, int bgModel, @ColorInt int textColor, @ColorInt int textTouchColor) {
         setBgModel(shapeView, bgModel, textColor, textTouchColor, textColor);
     }
 
     // 切换模式，同时设置字体颜色、触摸字体颜色、unable字体颜色
-    public static void setBgModel(ShapeView shapeView, int bgModel, int textColor, int textTouchColor, int textUnableColor) {
+    public static void setBgModel(ShapeView shapeView, int bgModel, @ColorInt int textColor, @ColorInt int textTouchColor, @ColorInt int textUnableColor) {
         ShapeModel model = getShapeModel(shapeView);
         if (model.bgModel == bgModel) return;
         model.bgModel = bgModel;
@@ -295,44 +298,51 @@ public class ShapeHelper {
         setShapeModel(shapeView, model);
     }
 
-    // 设置触摸字体
-    public static void setTextColor(ShapeView shapeView, int textColor) {
+    // 设置是否添加默认触摸背景
+    public static void setBgDefaultTouch(ShapeView shapeView, boolean bgDefaultTouch) {
         ShapeModel model = getShapeModel(shapeView);
-        model.textColor = textColor;
+        model.bgDefaultTouch = bgDefaultTouch;
         setShapeModel(shapeView, model);
     }
 
-    // 设置触摸字体
-    public static void setTextTouchColor(ShapeView shapeView, int textTouchColor) {
+    // 设置触摸字体、触摸背景、unable背景
+    public static void setTextColor(ShapeView shapeView, @ColorInt int textColor, @ColorInt int textTouchColor, @ColorInt int textUnableColor) {
         ShapeModel model = getShapeModel(shapeView);
+        model.textColor = textColor;
         model.textTouchColor = textTouchColor;
+        model.textUnableColor = textUnableColor;
+        model.textStartColor = 0;
+        model.textEndColor = 0;
         setShapeModel(shapeView, model);
+    }
+
+    // 设置字体颜色
+    public static void setTextColor(ShapeView shapeView, @ColorInt int textColor) {
+        setTextColor(shapeView, textColor, textColor, textColor);
+    }
+
+    // 设置触摸字体
+    public static void setTextTouchColor(ShapeView shapeView, @ColorInt int textTouchColor) {
+        ShapeModel model = getShapeModel(shapeView);
+        setTextColor(shapeView, model.textColor, textTouchColor, model.textUnableColor);
     }
 
     // 设置unable字体颜色
-    public static void setTextUnableColor(ShapeView shapeView, int textUnableColor) {
+    public static void setTextUnableColor(ShapeView shapeView, @ColorInt int textUnableColor) {
         ShapeModel model = getShapeModel(shapeView);
-        model.textUnableColor = textUnableColor;
-        setShapeModel(shapeView, model);
+        setTextColor(shapeView, model.textColor, model.textTouchColor, textUnableColor);
     }
 
-    // 设置纯背景颜色
-    public static void setSolidColor(ShapeView shapeView, int solidColor) {
+    // 设置渐变字体颜色
+    public static void setTextStarTAndEndColor(ShapeView shapeView, @ColorInt int textStartColor, @ColorInt int textEndColor) {
         ShapeModel model = getShapeModel(shapeView);
-        model.solidColor = solidColor;
-        setShapeModel(shapeView, model);
-    }
-
-    // 设置纯背景、触摸颜色
-    public static void setSolidColor(ShapeView shapeView, int solidColor, int solidTouchColor) {
-        ShapeModel model = getShapeModel(shapeView);
-        model.solidColor = solidColor;
-        model.solidTouchColor = solidTouchColor;
+        model.textStartColor = textStartColor;
+        model.textEndColor = textEndColor;
         setShapeModel(shapeView, model);
     }
 
     // 设置纯背景、触摸颜色、unable时的纯背景颜色
-    public static void setSolidColor(ShapeView shapeView, int solidColor, int solidTouchColor, int solidUnableColor) {
+    public static void setSolidColor(ShapeView shapeView, @ColorInt int solidColor, @ColorInt int solidTouchColor, @ColorInt int solidUnableColor) {
         ShapeModel model = getShapeModel(shapeView);
         model.solidColor = solidColor;
         model.solidTouchColor = solidTouchColor;
@@ -340,64 +350,104 @@ public class ShapeHelper {
         setShapeModel(shapeView, model);
     }
 
-    // 设置纯背景触摸颜色
-    public static void setSolidTouchColor(ShapeView shapeView, int solidTouchColor) {
+    // 设置纯背景颜色
+    public static void setSolidColor(ShapeView shapeView, @ColorInt int solidColor) {
+        setSolidColor(shapeView, solidColor, solidColor, solidColor);
+    }
+
+    // 设置纯背景、触摸颜色
+    public static void setSolidColor(ShapeView shapeView, @ColorInt int solidColor, @ColorInt int solidTouchColor) {
         ShapeModel model = getShapeModel(shapeView);
-        model.solidTouchColor = solidTouchColor;
+        setSolidColor(shapeView, solidColor, solidTouchColor, model.solidUnableColor);
+    }
+
+    // 设置纯背景触摸颜色
+    public static void setSolidTouchColor(ShapeView shapeView, @ColorInt int solidTouchColor) {
+        ShapeModel model = getShapeModel(shapeView);
+        setSolidColor(shapeView, model.solidColor, solidTouchColor, model.solidUnableColor);
+    }
+
+    // 设置线条颜色、线条大小、间隙大小
+    public static void setStrokeColor(ShapeView shapeView, @ColorInt int strokeColor, @ColorInt int strokeTouchColor, @ColorInt int strokeUnableColor, float strokeWidth, float strokeDashWidth, float strokeDashGap) {
+        ShapeModel model = getShapeModel(shapeView);
+        model.strokeColor = strokeColor;
+        model.strokeTouchColor = strokeTouchColor;
+        model.strokeUnableColor = strokeUnableColor;
+        model.strokeWidth = strokeWidth;
+        model.strokeDashWidth = strokeDashWidth;
+        model.strokeDashGap = strokeDashGap;
         setShapeModel(shapeView, model);
     }
 
+    // 设置线条颜色、线条大小、间隙大小
+    public static void setStrokeColor(ShapeView shapeView, @ColorInt int strokeColor, float strokeWidth, float strokeDashWidth, float strokeDashGap) {
+        setStrokeColor(shapeView, strokeColor, strokeColor, strokeColor, strokeWidth, strokeDashWidth, strokeDashGap);
+    }
+
     // 设置线条颜色
-    public static void setStrokeColor(ShapeView shapeView, int strokeColor) {
+    public static void setStrokeColor(ShapeView shapeView, @ColorInt int strokeColor) {
+        setStrokeColor(shapeView, strokeColor, strokeColor, strokeColor);
+    }
+
+    // 设置线条颜色、触摸线程颜色，unable线条颜色
+    public static void setStrokeColor(ShapeView shapeView, @ColorInt int strokeColor, @ColorInt int strokeTouchColor, @ColorInt int strokeUnableColor) {
         ShapeModel model = getShapeModel(shapeView);
         model.strokeColor = strokeColor;
+        model.strokeTouchColor = strokeTouchColor;
+        model.strokeUnableColor = strokeUnableColor;
+        setShapeModel(shapeView, model);
+    }
+
+    // 设置线条宽度
+    public static void setStrokeWidth(ShapeView shapeView, float strokeWidth, float strokeDashWidth, float strokeDashGap) {
+        ShapeModel model = getShapeModel(shapeView);
+        model.strokeWidth = strokeWidth;
+        model.strokeDashWidth = strokeDashWidth;
+        model.strokeDashGap = strokeDashGap;
         setShapeModel(shapeView, model);
     }
 
     // 设置触摸线条颜色
-    public static void setStrokeTouchColor(ShapeView shapeView, int startTouchColor) {
+    public static void setStrokeTouchColor(ShapeView shapeView, @ColorInt int startTouchColor) {
         ShapeModel model = getShapeModel(shapeView);
         model.startTouchColor = startTouchColor;
         setShapeModel(shapeView, model);
     }
 
     // 设置unable线条颜色
-    public static void setStrokeUnableColor(ShapeView shapeView, int strokeUnableColor) {
+    public static void setStrokeUnableColor(ShapeView shapeView, @ColorInt int strokeUnableColor) {
         ShapeModel model = getShapeModel(shapeView);
         model.strokeUnableColor = strokeUnableColor;
         setShapeModel(shapeView, model);
     }
 
-    // 设置线条颜色、线条大小、间隙大小
-    public static void setStrokeColor(ShapeView shapeView, int strokeColor, int strokeDashWidth, int strokeDashGap) {
-        ShapeModel model = getShapeModel(shapeView);
-        model.strokeColor = strokeColor;
-        model.strokeDashWidth = strokeDashWidth;
-        model.strokeDashGap = strokeDashGap;
-        setShapeModel(shapeView, model);
-    }
-
     // 设置渐变颜色（start、end）
-    public static void setGradientColor(ShapeView shapeView, int startColor, int endColor) {
+    public static void setGradientColor(ShapeView shapeView, @ColorInt int startColor, @ColorInt int endColor) {
         setGradientColor(shapeView, startColor, Color.TRANSPARENT, endColor);
     }
 
     // 设置渐变颜色（start、center、end）
-    public static void setGradientColor(ShapeView shapeView, int startColor, int centerColor, int endColor) {
+    public static void setGradientColor(ShapeView shapeView, @ColorInt int startColor, @ColorInt int centerColor, @ColorInt int endColor) {
         ShapeModel model = getShapeModel(shapeView);
         model.startColor = startColor;
+        model.startTouchColor = startColor;
+        model.startUnableColor = startColor;
         model.centerColor = centerColor;
+        model.centerTouchColor = centerColor;
+        model.centerUnableColor = centerColor;
         model.endColor = endColor;
+        model.endTouchColor = endColor;
+        model.endUnableColor = endColor;
         setShapeModel(shapeView, model);
     }
 
     // 设置触摸渐变颜色（start、end）
-    public static void setGradientTouchColor(ShapeView shapeView, int startTouchColor, int endTouchColor) {
+    public static void setGradientTouchColor(ShapeView shapeView, @ColorInt int startTouchColor, @ColorInt int endTouchColor) {
         setGradientTouchColor(shapeView, startTouchColor, Color.TRANSPARENT, endTouchColor);
     }
 
     // 设置触摸渐变颜色（start、center、end）
-    public static void setGradientTouchColor(ShapeView shapeView, int startTouchColor, int centerTouchColor, int endTouchColor) {
+    public static void setGradientTouchColor(ShapeView shapeView, @ColorInt int startTouchColor, @ColorInt int centerTouchColor, @ColorInt int endTouchColor) {
         ShapeModel model = getShapeModel(shapeView);
         model.startTouchColor = startTouchColor;
         model.centerTouchColor = centerTouchColor;
@@ -406,16 +456,30 @@ public class ShapeHelper {
     }
 
     // 设置unable渐变颜色（start、end）
-    public static void setGradientUnableColor(ShapeView shapeView, int startUnableColor, int endUnableColor) {
+    public static void setGradientUnableColor(ShapeView shapeView, @ColorInt int startUnableColor, @ColorInt int endUnableColor) {
         setGradientUnableColor(shapeView, startUnableColor, Color.TRANSPARENT, endUnableColor);
     }
 
     // 设置unable渐变颜色（start、center、end）
-    public static void setGradientUnableColor(ShapeView shapeView, int startUnableColor, int centerUnableColor, int endUnableColor) {
+    public static void setGradientUnableColor(ShapeView shapeView, @ColorInt int startUnableColor, @ColorInt int centerUnableColor, @ColorInt int endUnableColor) {
         ShapeModel model = getShapeModel(shapeView);
         model.startUnableColor = startUnableColor;
         model.centerUnableColor = centerUnableColor;
         model.endUnableColor = endUnableColor;
+        setShapeModel(shapeView, model);
+    }
+
+    // 设置背景Drawable
+    public static void setBackgroundDrawable(ShapeView shapeView, Drawable bgDrawable) {
+        setBackgroundDrawable(shapeView, bgDrawable, null, null);
+    }
+
+    // 设置背景Drawable、触摸背景Drawable、unable背景Drawable
+    public static void setBackgroundDrawable(ShapeView shapeView, Drawable bgDrawable, Drawable bgTouchDrawable, Drawable bgUnableDrawable) {
+        ShapeModel model = getShapeModel(shapeView);
+        model.bgDrawable = bgDrawable;
+        model.bgTouchDrawable = bgTouchDrawable;
+        model.bgUnableDrawable = bgUnableDrawable;
         setShapeModel(shapeView, model);
     }
 
@@ -437,4 +501,5 @@ public class ShapeHelper {
     }
 
 }
+
 
