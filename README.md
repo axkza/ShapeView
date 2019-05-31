@@ -22,41 +22,41 @@ drawable背景|bg_drawable：正常背景图 <br> bg_touch_drawable：按下背�
 
 ## 代码调用 
 所有动态设置ShapeView属性的尽量都用ShapeHelper去处理，比如：ShapeTextView shapeView = new ShapeTextView(context); 
-##### 设置字体颜色
+##### > 设置字体颜色
 ShapeHelper.setTextColor(shapeView, getResources().getColor(R.color.black));
 ShapeHelper.setTextColor(shapeView, 0xFFFF9183);
 ShapeHelper.setTextColor(shapeView, Color.parseColor("#fae097"));
 ShapeHelper.setTextColor(shapeView, 0xFFFF9183, 0xFFF45383, 0xFFF4563d); // 设置正常、触摸、unable字体颜色
 
-##### 设置纯色背景
+##### > 设置纯色背景
 ShapeHelper.setSolidColor(shapeView, getResources().getColor(R.color.nafio_b));
 ShapeHelper.setSolidColor(shapeView, 00xFFFF9183, 0xFFF45383, 0xFFF4563d); // 设置正常、触摸、unable纯色背景
 
-##### 设置线条背景
+##### > 设置线条背景
 ShapeHelper.setStrokeColor(shapeView, getResources().getColor(R.color.nafio_b));
 ShapeHelper.setStrokeWidth(shapeView, 12, 10, 9);  // 设置线条宽度、虚线宽度、虚线间隔宽度
 
-##### 设置渐变色背景
+##### > 设置渐变色背景
 ShapeHelper.setGradientColor(shapeView, getResources().getColor(R.color.nafio_b), getResources().getColor(R.color.nafio_b));  // 设置起始和结束的渐变颜色
 
 ShapeHelper.setGradientColor(shapeView, getResources().getColor(R.color.nafio_b), getResources().getColor(R.color.nafio_b), getResources().getColor(R.color.nafio_b));  // 设置起始、中间、结束的渐变颜色
 
-##### 设置背景类型 （在线条、纯色、渐变色背景多种配合的情况下）
+##### > 设置背景类型 （在线条、纯色、渐变色背景多种配合的情况下）
 ShapeHelper.setBgModel(shapeView, ShapeHelper.BG_MODEL.SOLID);    // 设置为纯色背景
 ShapeHelper.setBgModel(shapeView, ShapeHelper.BG_MODEL.STROKE);   // 设置为线条背景
 ShapeHelper.setBgModel(shapeView, ShapeHelper.BG_MODEL.GRADIENT); // 设置为渐变色背景
 ShapeHelper.setBgModel(shapeView, ShapeHelper.BG_MODEL.ALL);      // 设置线条、纯色、渐变色背景均显示
 
-##### 设置增加默认背景置灰效果
+##### > 设置增加默认背景置灰效果
 ShapeHelper.setBgDefaultTouch(shapeView, true);
 
-##### 设置圆角角度
+##### > 设置圆角角度
 ShapeHelper.setCornerRadius(shapeView, 10);
 <br>
 <br>
 ## 自定义动态修改属性
 ShapeHelper如果没有涵盖到的修改属性的方法，可以自行通过ShapeHelper的getShapeModel方法获取属性，修改后通过setShapeModel方法重新设置，比如：
-##### 修改宽高比
+##### > 修改宽高比
 ShapeModel model = ShapeHelper.getShapeModel(shapeView);
 model.whRatio = 2.4f;
 ShapeHelper.setShapeModel(shapeView, model);
