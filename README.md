@@ -8,8 +8,7 @@
 
 | 属性名 | 说明 | 
 | ------ | ------ | 
-| textColor | 正常字体颜色  
-水电费| 
+| textColor | 正常字体颜色 <br>水电费| 
 | text_touch_color | 按下的字体色 | 
 | text_unable_color | unable的字体色 | 
 | text_start_color | 字体开始的渐变色 |  
