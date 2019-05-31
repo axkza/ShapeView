@@ -7,49 +7,15 @@
 
 
 | 属性名 | 说明 | 
-| ------ | ------ | 
-| textColor | 正常字体颜色 <br>水电费| 
-| text_touch_color | 按下的字体色 | 
-| text_unable_color | unable的字体色 | 
-| text_start_color | 字体开始的渐变色 |  
-| text_end_color | 字体结束的渐变色 |  
+| 字体颜色 | textColor：正常字体颜色 <br> text_touch_color：按下的字体色 <br> text_unable_color：unable的字体色 <br> text_start_color：渐变字体开始颜色 <br> text_end_color：渐变字体结束颜色| 
+| drawable背景 | bg_drawable：正常背景图 <br> bg_touch_drawable：按下背景图 <br> bg_unable_drawable：unable背景图 | 
+| 纯色背景 |solid_color：纯色背景 <br> solid_touch_color：按下时纯色背景 <br> solid_unable_color：unable时纯色背景 | 
+| 线条背景 | stroke_color：边框色 <br> stroke_touch_color：按下时边框色 <br> stroke_unable_color：unable时边框色 <br> stroke_width：线条宽度 <br> stroke_dash_width：虚线宽度 <br> stroke_dash_gap：虚线间隙 |
+
+
+
+
 | bg_default_touch | 是否有默认触摸置灰的效果，以正常背景为基础，添加一个置灰的效果 |
-| bg_drawable | 正常背景图 |
-| bg_touch_drawable | 按下背景图 |
-| bg_unable_drawable | unable背景图 | 
-| solid_color | 填充色 |  
-| solid_touch_color | 按下的填充色 |  
-| solid_unable_color | unable的填充色 |  
-| stroke_color | 边框色 | 
-| stroke_touch_color | 按下的边框色 |  
-| stroke_unable_color | unable的边框色 | 
-| stroke_width | 线条宽度 |  
-| stroke_dash_width | 虚线宽度 | 
-| stroke_dash_gap | 虚线间隙 |  
-| gradient_start_color | 渐变背景开始颜色 |
-| gradient_center_color| 渐变背景开始渐变颜色 | 
-|  |  | 
-| 字体颜色 | text_touch_color  
-text_unable_color  
-text_unable_color | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
-|  |  | 
 
         <!---->
         <attr name=""/>
