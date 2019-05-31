@@ -19,8 +19,7 @@ drawable背景|bg_drawable：正常背景图 <br> bg_touch_drawable：按下背�
 
 <br>
 <br>
-## 代码调用
-
+## 代码调用 
 所有动态设置ShapeView属性的尽量都用ShapeHelper去处理，比如：
 
 ShapeTextView shapeView = new ShapeTextView(context); 
